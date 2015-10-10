@@ -39,4 +39,25 @@
     [defaults synchronize];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"view will appear");
+    
+    [UIView animateWithDuration:0.4 animations:^{
+    } completion:^(BOOL finished) {
+        // Do something here when the animation finishes.
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"view did appear");
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    NSLog(@"view will disappear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    NSLog(@"view did disappear");
+}
+
 @end

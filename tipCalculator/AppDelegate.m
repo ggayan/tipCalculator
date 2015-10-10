@@ -17,6 +17,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDate *app_closed = [defaults objectForKey:@"appClosed"];
+    
+    if(app_closed) {
+        NSDate *now = [NSDate date];
+        NSTimeInterval distanceBetweenDates = [now timeIntervalSinceDate:app_closed];
+        int minutesBetweenDates = distanceBetweenDates / 60;
+        
+        if (minutesBetweenDates >= 10) {
+            [defaults removeObjectForKey:@"savedBill"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
     return YES;
 }
 
@@ -40,6 +53,9 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSDate date] forKey:@"appClosed"];
+    [defaults synchronize];
 }
 
 @end
